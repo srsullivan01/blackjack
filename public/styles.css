@@ -1,0 +1,19 @@
+.left-column {
+  display: flex;
+  flex-direction: column;
+  align: center;
+  align-items: center;
+}
+button {
+  height: 30px;
+  width: 50px;
+}
+.game-board {
+  display: flex;
+  flex-direction: row-reverse;
+  align: right;
+  height:100%;
+  width: 100%;
+  padding: 10px;
+  background-color: lime;
+}
