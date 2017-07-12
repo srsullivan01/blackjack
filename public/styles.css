@@ -35,3 +35,20 @@ button {
 a {
   background-color: #00bfa5;
 }
+
+h2 {
+  color: white;
+}
+
+.dealer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+.playerName {
+  display: flex;
+  justify-content: center;
+  flex-direction: column-reverse;
+  text-align: center;
+}
