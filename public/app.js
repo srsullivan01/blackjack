@@ -1,3 +1,20 @@
+//deal cards to player
+var deal = function() {
+  var card = Math.floor((Math.random() * 52) + 1);
+  console.log("deal is running");
+  return card;
+};
+
+var card1 = deal();
+var card2 = deal();
+
+//score what player has been dealt
+var score = function(){
+  console.log("score is running");
+    return (card1 + card2);
+};
+
+
 var cardArray = [
   {
     value: 1,
@@ -257,7 +274,7 @@ var cardArray = [
   },
 ];
 
-var blackJack = {
+/*var blackJack = {
   gameRunning: function(){
     console.log('blackJack.gameRunning() is running');
 
@@ -269,7 +286,6 @@ var blackJack = {
         //deal two to player + remove those from the array
       //create function for stand
       //create reset function
-      setTimeout(Stopwatch.tickClock, 10); // trigger next clock tick
       blackJack.dealCards();
       AppController.handleCards();
     }
@@ -277,6 +293,8 @@ var blackJack = {
   hit: function(){},
   stand: function(){},
   },
+*/
+
 
 
 /*GIVEN: the game has loaded and Im ready to play
@@ -284,13 +302,16 @@ WHEN: I click the button labeled 'deal'
 THEN: the cards are dealed and I can begin the game */
 
 //need function to deal cards
-/*getCards: function() {
+/*
+getCards: function() {
   console.log("dealCards is running");
   return [
-  //that function should loop through the array of cards,
+  //that function should choose two cards at random from the array,
   cardArray[Math.floor(Math.random() * cardArray.length)],
   cardArray[Math.floor(Math.random() * cardArray.length)],
   ];
+
+  //and push cards into the player and dealer's hands
 }
 dealCards: function() {
   var tmp = cardArray.slice(cardArray);
@@ -306,7 +327,16 @@ dealCards: function() {
 }
 console.log(ret);
 
-    //deal two to dealer + remove those from the array
-    //deal two to player + remove those from the array
-//tie that function to run on load
-}, */
+
+//tie that function to run on reset btton
+},
+$(function(){
+  // Attach AppController methods to the DOM as event handlers here.
+  $('#reset').on('click', function (event) {
+    event.dealCards();
+
+    console.log('click event is working');
+
+    AppController.handleClickStart();
+
+  }) */
