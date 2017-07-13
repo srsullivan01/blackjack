@@ -1,10 +1,11 @@
 //build a deck
+//tried one big array, doesn't work that well, make arrays for suites + values then push to a deck
 var suites = ["clubs", "spades", "diamonds", "hearts"];
 var value = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "King", "Queen", "Jack"];
 var deck = [];
-
-function makeDeck()
-{
+//assemble arrays and push to deck
+  //make sure face card values are being assessed
+function makeDeck(){
   deck = [];
   for (var i = 0; i < value.length; i++)
   {
@@ -15,16 +16,15 @@ function makeDeck()
                    weight = 10;
                if (values[i] == "Ace")
                    weight = 11;
-               var card = { Value: value[i], Suit: suits[x], Weight: weight };
+               var card = { Value: value[i], Suit: suits[h], Weight: weight };
                deck.push(card);
     }
   }
 }
-console.log("you've got " + deck);
+console.log("you've got a deck");
 //shfufle the deck you just made
-
-function shuffle()
-{
+  //make two positions and then move cards based on those
+function shuffle(){
   for (var i = 0; i < 1000; i++)
   //shuffling 1000 times for max randomization. could easily have used any number over 52
   {
@@ -34,22 +34,51 @@ function shuffle()
 
     deck[card1] = deck[card2];
     deck[card2] = temporary;
+    console.log("the deck has been shuffled");
   }
 }
 
-//deal cards to player on click
-var restartcExt = document.getElementsByClassName("restart")[0];
+//deal cards to player
+//first create a player space the cards can be dealt to
+var playerHand = [];
+function createPlayer(num){
+  player = [];
+  for (var i = 0; i <= num; i++){
+    var hand = [];
+    var player = [ Name: 'Player ' + i, ID: i, Points: 0, Hand: hand ];
+            playerHand.push(player);
+  }
+}
 
-restart.onclick = function() {
-  var deal = function() {
-    var card = Math.floor((Math.random() * 52) + 1);
-    console.log("deal is running");
-    return card;
-};
-};
-var card1 = deal();
-var card2 = deal();
+//design how user interacts
+function makeUI() {
+  //come back to this later
+}
 
+
+//NOW deal the cards
+  //loop through cards, remove first card from deck
+  //push card to the player hand array
+  //repeat
+
+function dealCards() {
+  for(var i = 0; i < 2; i++)
+  {
+      for (var j = 0; j < players.length; j++)
+      {
+          var card = deck.pop();
+          players[j].Hand.push(card);
+          renderCard(card, j);
+          updatePoints();
+      }
+  }
+
+  updateDeck();
+}
+
+//render cards
+
+/*
 //convert the dealt cards to values that make sense within this context
 var getValue = function(card) {
   if(card % 13 === 0 || card % 13 === 11 || card % 13 === 12) {
