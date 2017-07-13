@@ -9,6 +9,7 @@ $(document).ready(function(){
       stand();
     });
   });
+
 //build a deck
 //tried one big array, doesn't work that well, make arrays for suites + values then push to a deck
 var suites = ["clubs", "spades", "diamonds", "hearts"];
@@ -30,71 +31,55 @@ function start(){
                var card = { Value: value[i], Suit: suites[h], Weight: weight };
                deck.push(card);
                console.log("you've got a deck");
+             }
+           }
+   var shuffle = function(){
+    for (var i = 0; i < 1000; i++)
+    //shuffling 1000 times for max randomization. could easily have used any number over 52
+    {
+      var card1 = Math.floor((Math.random() * deck.length));
+      var card2 = Math.floor((Math.random() * deck.length));
+      var temporary = deck[card1];
+
+      deck[card1] = deck[card2];
+      deck[card2] = temporary;
+      console.log("the deck has been shuffled");
     }
-  }
+  };
+  var playerHand = [];
+  function createPlayer(num){
+    var player = [];
+    for (var i = 0; i <= num; i++){
+      var hand = [];
+      player = [ {Name: 'Player ' + i, ID: i, Points: 0, Hand: hand} ];
+              playerHand.push(player);
+              console.log("cards are dealt to hands");
+    }
+    function makeUI() {
+    {
+       document.getElementById('players').innerHTML = '';
+       for(var i = 0; i < players.length; i++)
+       {
+           var div_player = document.createElement('div');
+           var div_playerid = document.createElement('div');
+           var div_hand = document.createElement('div');
+           var div_points = document.createElement('div');
+
+           div_points.className = 'points';
+           div_points.id = 'points ' + i;
+           div_player.id = 'player ' + i;
+           div_player.className = 'player';
+           div_hand.id = 'hand ' + i;
+
+           div_playerid.innerHTML = players[i].ID;
+           div_player.appendChild(div_playerid);
+           div_player.appendChild(div_hand);
+           div_player.appendChild(div_points);
+           document.getElementById('players').appendChild(div_player);
+       }
+       console.log("UI set up");
+    }
 }
-//shfufle the deck you just made
-  //make two positions and then move cards based on those
-function shuffle(){
-  for (var i = 0; i < 1000; i++)
-  //shuffling 1000 times for max randomization. could easily have used any number over 52
-  {
-    var card1 = Math.floor((Math.random() * deck.length));
-    var card2 = Math.floor((Math.random() * deck.length));
-    var temporary = deck[card1];
-
-    deck[card1] = deck[card2];
-    deck[card2] = temporary;
-    console.log("the deck has been shuffled");
-  }
-}
-
-//deal cards to player
-//first create a player space the cards can be dealt to
-var playerHand = [];
-function createPlayer(num){
-  var player = [];
-  for (var i = 0; i <= num; i++){
-    var hand = [];
-    player = [ {Name: 'Player ' + i, ID: i, Points: 0, Hand: hand} ];
-            playerHand.push(player);
-            console.log("cards are dealt to hands")
-  }
-}
-
-//design how user interacts
-function makeUI() {
-{
-   document.getElementById('players').innerHTML = '';
-   for(var i = 0; i < players.length; i++)
-   {
-       var div_player = document.createElement('div');
-       var div_playerid = document.createElement('div');
-       var div_hand = document.createElement('div');
-       var div_points = document.createElement('div');
-
-       div_points.className = 'points';
-       div_points.id = 'points ' + i;
-       div_player.id = 'player ' + i;
-       div_player.className = 'player';
-       div_hand.id = 'hand ' + i;
-
-       div_playerid.innerHTML = players[i].ID;
-       div_player.appendChild(div_playerid);
-       div_player.appendChild(div_hand);
-       div_player.appendChild(div_points);
-       document.getElementById('players').appendChild(div_player);
-   }
-   console.log("UI set up");
-}
-}
-
-
-//NOW deal the cards
-  //loop through cards, remove first card from deck
-  //push card to the player hand array
-  //do this twice
-
 function dealCards() {
   for(var i = 0; i < 2; i++)
   {
@@ -110,10 +95,6 @@ function dealCards() {
   updateDeck();
   console.log("deck updated");
 }
-
-//render cards
-  //create a div for the card then display card info there
-  //come back and add images when youre done writing functions and logic
 function renderCard(card, player){
   var hand = document.getElementById('hand ' + player);
   hand.appendChild(getCardInterface(card));
@@ -127,6 +108,34 @@ function getCardInterface(card){
   console.log("getCardInterface is running");
   return cardDiv;
 }
+}
+}
+
+//shfufle the deck you just made
+  //make two positions and then move cards based on those
+
+
+//deal cards to player
+//first create a player space the cards can be dealt to
+
+
+//design how user interacts
+
+
+
+
+//NOW deal the cards
+  //loop through cards, remove first card from deck
+  //push card to the player hand array
+  //do this twice
+
+
+//render cards
+  //create a div for the card then display card info there
+  //come back and add images when youre done writing functions and logic
+
+
+
 
 //Hit button
 var currentPlayer = 0;
