@@ -1,9 +1,19 @@
-//deal cards to player
-var deal = function() {
-  var card = Math.floor((Math.random() * 52) + 1);
-  console.log("deal is running");
-  return card;
-};
+
+//deal cards to player on click
+$(function(){
+   // did the UI load?
+   console.log(jQuery.ui);
+ });
+
+
+
+$(".restart").click(function(){
+  var deal = function() {
+    var card = Math.floor((Math.random() * 52) + 1);
+    console.log("deal is running");
+    return card;
+  };
+});
 
 var card1 = deal();
 var card2 = deal();
@@ -26,6 +36,7 @@ var score = function(){
   console.log("score is running");
     return (getValue(card1) + getValue(card2));
 };
+//move this to display in p
 console.log("You have cards " + card1 + " and " + card2 +
         " for a score of " + score());
 
