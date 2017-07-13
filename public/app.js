@@ -21,6 +21,7 @@ function makeDeck(){
     }
   }
 }
+
 console.log("you've got a deck");
 //shfufle the deck you just made
   //make two positions and then move cards based on those
@@ -48,12 +49,12 @@ function createPlayer(num){
     var player = [ Name: 'Player ' + i, ID: i, Points: 0, Hand: hand ];
             playerHand.push(player);
   }
-}
+},
 
 //design how user interacts
 function makeUI() {
   //come back to this later
-}
+},
 
 
 //NOW deal the cards
@@ -74,9 +75,40 @@ function dealCards() {
   }
 
   updateDeck();
-}
+},
 
 //render cards
+  //create a div for the card then display card info there
+  //come back and add images when youre done writing functions and logic
+function renderCard(card, player){
+  var hand = document.getElementById('hand ' + player);
+  hand.appendChild(getCardInterface(card));
+},
+
+function getCardInterface(card){
+  var cardDiv = document.createElement('div');
+  cardDiv.className = 'card';
+  cardDiv.innerHTML = card.Suites + " " + card.Value;
+  return cardDiv;
+},
+
+//Hit button
+var currentPlayer = 0;
+function hit(){
+  //take a card from deck and pop to player
+  var card = deck.pop();
+  players[currentPlayer].Hand.push(card);
+  renderCard(card, currentPlayer);
+  updatePoints();
+  checkScore();
+},
+
+//check to see if player's score is over 21
+function checkScore() {
+  if(players[currentPlayer].Points > 21) {
+    document.getElementById('status').innerHTML = 'You lose.';
+  }
+}
 
 /*
 //convert the dealt cards to values that make sense within this context
