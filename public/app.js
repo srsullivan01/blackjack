@@ -1,20 +1,52 @@
+//build a deck
+var suites = ["clubs", "spades", "diamonds", "hearts"];
+var value = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "King", "Queen", "Jack"];
+var deck = [];
+
+function makeDeck()
+{
+  deck = [];
+  for (var i = 0; i < value.length; i++)
+  {
+    for (var h = 0; h <suites.length; h++)
+    {
+      var weight = parseInt(values[i]);
+               if (values[i] == "Jack" || values[i] == "Queen" || values[i] == "King")
+                   weight = 10;
+               if (values[i] == "Ace")
+                   weight = 11;
+               var card = { Value: value[i], Suit: suits[x], Weight: weight };
+               deck.push(card);
+    }
+  }
+}
+console.log("you've got " + deck);
+//shfufle the deck you just made
+
+function shuffle()
+{
+  for (var i = 0; i < 1000; i++)
+  //shuffling 1000 times for max randomization. could easily have used any number over 52
+  {
+    var card1 = Math.floor((Math.random() * deck.length));
+    var card2 = Math.floor((Math.random() * deck.length));
+    var temporary = deck[card1];
+
+    deck[card1] = deck[card2];
+    deck[card2] = temporary;
+  }
+}
 
 //deal cards to player on click
-$(function(){
-   // did the UI load?
-   console.log(jQuery.ui);
- });
+var restartcExt = document.getElementsByClassName("restart")[0];
 
-
-
-$(".restart").click(function(){
+restart.onclick = function() {
   var deal = function() {
     var card = Math.floor((Math.random() * 52) + 1);
     console.log("deal is running");
     return card;
-  };
-});
-
+};
+};
 var card1 = deal();
 var card2 = deal();
 
