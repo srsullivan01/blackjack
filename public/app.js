@@ -43,24 +43,24 @@ function shuffle(){
 //first create a player space the cards can be dealt to
 var playerHand = [];
 function createPlayer(num){
-  player = [];
+  var player = [];
   for (var i = 0; i <= num; i++){
     var hand = [];
-    var player = [ Name: 'Player ' + i, ID: i, Points: 0, Hand: hand ];
+    player = [ {Name: 'Player ' + i, ID: i, Points: 0, Hand: hand} ];
             playerHand.push(player);
   }
-},
+}
 
 //design how user interacts
 function makeUI() {
   //come back to this later
-},
+}
 
 
 //NOW deal the cards
   //loop through cards, remove first card from deck
   //push card to the player hand array
-  //repeat
+  //do this twice
 
 function dealCards() {
   for(var i = 0; i < 2; i++)
@@ -75,7 +75,7 @@ function dealCards() {
   }
 
   updateDeck();
-},
+}
 
 //render cards
   //create a div for the card then display card info there
@@ -83,14 +83,14 @@ function dealCards() {
 function renderCard(card, player){
   var hand = document.getElementById('hand ' + player);
   hand.appendChild(getCardInterface(card));
-},
+}
 
 function getCardInterface(card){
   var cardDiv = document.createElement('div');
   cardDiv.className = 'card';
   cardDiv.innerHTML = card.Suites + " " + card.Value;
   return cardDiv;
-},
+}
 
 //Hit button
 var currentPlayer = 0;
@@ -101,7 +101,7 @@ function hit(){
   renderCard(card, currentPlayer);
   updatePoints();
   checkScore();
-},
+}
 
 //check to see if player's score is over 21
 function checkScore() {
@@ -110,6 +110,33 @@ function checkScore() {
   }
 }
 
+//write stay function
+  //find current player, remove them from 'active' and make next player active.
+  //once that has been done, check score and end game if player's score is in the right range
+function stay(){
+  if(currentPlayer != players.length - 1){
+    document.getElementById('player ' + currentPlayer).classList.remove('active');
+    currentPlayer += 1;
+    document.getElementById('player ' + currentPlayer).classList.add('active');
+  }
+  else {
+    stop();
+  }
+}
+//compare player scores by looping through
+function stop(){
+  var win = -1;
+  var lose = 0;
+
+  for (var i = 0; i < players.length; i++){
+    //check that score is less than 22 and greater than other players score
+    if(player[i].Points > score && player[i].Points < 22) {
+      win = i;
+    }
+    score = players[i].Points;
+  }
+  document.getElementById('status').innerHTML = "Winner: Player " + players[winner].ID;
+}
 /*
 //convert the dealt cards to values that make sense within this context
 var getValue = function(card) {
