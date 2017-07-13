@@ -8,11 +8,26 @@ var deal = function() {
 var card1 = deal();
 var card2 = deal();
 
+//convert the dealt cards to values that make sense within this context
+var getValue = function(card) {
+  if(card % 13 === 0 || card % 13 === 11 || card % 13 === 12) {
+        return 10;
+    }
+    else if (card % 13 === 1) {
+    return 11;
+}
+    else {
+        return card % 13;
+    }
+};
+
 //score what player has been dealt
 var score = function(){
   console.log("score is running");
-    return (card1 + card2);
+    return (getValue(card1) + getValue(card2));
 };
+console.log("You have cards " + card1 + " and " + card2 +
+        " for a score of " + score());
 
 
 var cardArray = [
