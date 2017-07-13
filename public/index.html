@@ -11,9 +11,9 @@
 
         <div class="col s12 m4 l3">
           <span class="left-column">
-            <a class="hit waves-effect waves-light btn">Hit</a>
-            <a class="stand waves-effect waves-light btn">Stand</a>
-            <a class="restart waves-effect waves-light btn">Restart</a>
+            <input type="button" class="btn" value="hit" onlick="hit()"/>
+            <input type="button" class="btn" value="stand" onclick="stay()"/>
+            <input type="button" class="btn" value="restart" onclick="start()"/>
             <div class="container">
             <div class="row">
               <div class="col l6 s12">
@@ -27,9 +27,15 @@
 
     <div class="col s12 m8 l9">
       <div class="game-board">
+        <div id="players" class="players">
       <div class="dealer-hand">
-        <h2 class="dealer"> Dealer </h2>
+        <div id="deck" class="deck">
         <img class="deckBack" src="../public/images/poker_cards_chips_2d/PNGs/decks/small/deck_4.png"/>
+
+      <div class="card" id="deckcount">52</div>
+      <div class="status" id="status"></div>
+    </div>
+        <h2 class="dealer"> Dealer </h2>
         <img class="first-card-dealer" src=""/>
         <img class="second-card-dealer" src=""/>
       </div>
@@ -40,6 +46,7 @@
         <img class="card4" src="../public/images/poker_cards_chips_2d/PNGs/extra/card_empty.png" alt=""/>
         <img class="card5" src="../public/images/poker_cards_chips_2d/PNGs/extra/card_empty.png" alt=""/>
         <h2 class="playerName"> Player </h2>
+        </div>
       </div>
     </div>
     </div>

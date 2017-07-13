@@ -5,24 +5,26 @@ var value = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "King", "Queen
 var deck = [];
 //assemble arrays and push to deck
   //make sure face card values are being assessed
-function makeDeck(){
+function start(){
   deck = [];
   for (var i = 0; i < value.length; i++)
   {
     for (var h = 0; h <suites.length; h++)
     {
-      var weight = parseInt(values[i]);
-               if (values[i] == "Jack" || values[i] == "Queen" || values[i] == "King")
+      var weight = parseInt(value[i]);
+               if (value[i] == "Jack" || value[i] == "Queen" || value[i] == "King")
                    weight = 10;
-               if (values[i] == "Ace")
+               if (value[i] == "Ace")
                    weight = 11;
-               var card = { Value: value[i], Suit: suits[h], Weight: weight };
+               var card = { Value: value[i], Suit: suites[h], Weight: weight };
                deck.push(card);
+               console.log("you've got a deck");
     }
   }
 }
 
-console.log("you've got a deck");
+
+
 //shfufle the deck you just made
   //make two positions and then move cards based on those
 function shuffle(){
@@ -48,12 +50,35 @@ function createPlayer(num){
     var hand = [];
     player = [ {Name: 'Player ' + i, ID: i, Points: 0, Hand: hand} ];
             playerHand.push(player);
+            console.log("cards are dealt to hands")
   }
 }
 
 //design how user interacts
 function makeUI() {
-  //come back to this later
+{
+   document.getElementById('players').innerHTML = '';
+   for(var i = 0; i < players.length; i++)
+   {
+       var div_player = document.createElement('div');
+       var div_playerid = document.createElement('div');
+       var div_hand = document.createElement('div');
+       var div_points = document.createElement('div');
+
+       div_points.className = 'points';
+       div_points.id = 'points ' + i;
+       div_player.id = 'player ' + i;
+       div_player.className = 'player';
+       div_hand.id = 'hand ' + i;
+
+       div_playerid.innerHTML = players[i].ID;
+       div_player.appendChild(div_playerid);
+       div_player.appendChild(div_hand);
+       div_player.appendChild(div_points);
+       document.getElementById('players').appendChild(div_player);
+   }
+   console.log("UI set up");
+}
 }
 
 
@@ -75,6 +100,7 @@ function dealCards() {
   }
 
   updateDeck();
+  console.log("deck updated");
 }
 
 //render cards
@@ -83,6 +109,7 @@ function dealCards() {
 function renderCard(card, player){
   var hand = document.getElementById('hand ' + player);
   hand.appendChild(getCardInterface(card));
+  console.log("renderCard function is going");
 }
 
 function getCardInterface(card){
@@ -90,6 +117,7 @@ function getCardInterface(card){
   cardDiv.className = 'card';
   cardDiv.innerHTML = card.Suites + " " + card.Value;
   return cardDiv;
+  console.log("getCardInterface is running");
 }
 
 //Hit button
@@ -101,12 +129,14 @@ function hit(){
   renderCard(card, currentPlayer);
   updatePoints();
   checkScore();
+  console.log("hit button is working");
 }
 
 //check to see if player's score is over 21
 function checkScore() {
   if(players[currentPlayer].Points > 21) {
     document.getElementById('status').innerHTML = 'You lose.';
+    console.log("checkScore is running");
   }
 }
 
@@ -122,6 +152,7 @@ function stay(){
   else {
     stop();
   }
+  console.log("srtay function is working");
 }
 //compare player scores by looping through
 function stop(){
@@ -136,7 +167,12 @@ function stop(){
     score = players[i].Points;
   }
   document.getElementById('status').innerHTML = "Winner: Player " + players[winner].ID;
+  console.log("stop function is working");
 }
+//issues:
+  //nothing happens when i click restart
+  //there isnt a start fiunction
+  //everything is tied to some othr function so nothing is happening
 /*
 //convert the dealt cards to values that make sense within this context
 var getValue = function(card) {
