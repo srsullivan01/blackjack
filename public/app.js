@@ -2,7 +2,9 @@ $(document).ready(function(){
     $('#startButton').click(function(){
        start();
        shuffle();
+       //createPlayer();
        dealCards();
+
     });
     $('#hitButton').click(function(){
       hit();
@@ -50,7 +52,9 @@ function start(){
       console.log("the deck has been shuffled");
     }
   };
+
   var playerHand = [];
+
   function createPlayer(num){
     var player = [];
     for (var i = 0; i <= num; i++){
@@ -66,14 +70,20 @@ function start(){
         for (var j = 0; j < players.length; j++)
         {
             var card = deck.pop();
-            players[j].Hand.push(card);
+            players[j].playerHand.push(card);
             renderCard(card, j);
             updatePoints();
         }
     }
-    updateDeck();
-    console.log("deck updated");
+  // //var updateDeck = function
+      //GIVEN: player hand exists - and it does
+      //this should remove the cards that are in the player hand from the deck and reduce deck count by that many cards
+      //if (object exists in player hand) then (remove it from deck
+      //thats happening anyway
+      //can i edit this out
+      console.log("deck updated");
   }
+});
 
 
     function makeUI() {
@@ -83,7 +93,7 @@ function start(){
        {
            var div_player = document.createElement('div');
            var div_playerid = document.createElement('div');
-           var div_hand = document.createElement('div');
+           var div_playerHand = document.createElement('div');
            var div_points = document.createElement('div');
 
            div_points.className = 'points';
@@ -104,19 +114,17 @@ function start(){
 
 
 
-function renderCard(card, player) {
-  var hand = document.getElementById('hand ' + player);
-  hand.appendChild(getCardInterface(card));
-  console.log("renderCard function is going");
-}
-  function getCardInterface(card){
-    var cardDiv = document.createElement('div');
-    cardDiv.className = 'card';
-    cardDiv.innerHTML = card.Suites + " " + card.Value;
-    console.log("getCardInterface is running");
-    return cardDiv;
-  }
+function renderCard(card, player){
+        var hand = document.getElementById('hand_' + player);
+        hand.appendChild(getCardUI(card));
+    }
 
+    function getCardUI(card){
+        var el = document.createElement('div');
+        el.className = 'card';
+        el.innerHTML = card.Suit + ' ' + card.Value;
+        return el;
+    }
 
 //shfufle the deck you just made
   //make two positions and then move cards based on those
@@ -150,7 +158,8 @@ var currentPlayer = 0;
 function hit(){
   //take a card from deck and pop to player
   var card = deck.pop();
-  players[currentPlayer].hand.push(card);
+  playerHand.push(card);
+    //what is the hand thats being used here
   renderCard(card, currentPlayer);
   updatePoints();
   checkScore();
@@ -194,7 +203,7 @@ function stop(){
   document.getElementById('status').innerHTML = "Winner: Player " + players[winner].ID;
   console.log("stop function is working");
 }
-});
+
 
 
 
