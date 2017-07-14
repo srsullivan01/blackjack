@@ -3,7 +3,18 @@ var playerHand = [];
 var dealerHand = [];
 var playerHandValue = [];
 var dealerHandValue = [];
-
+$('#startButton').click(function(){
+  dealNewPlayerHand();
+  dealNewDealerHand();
+  console.log("player hand is: " + playerHand);
+  console.log("dealer hand is: " + dealerHand);
+});
+$("#hitButton").click(function(){
+  hitButton();
+});
+$("#standButton").click(function(){
+  standButton();
+});
 
 // Deck Setup
 var GameData = {
@@ -15,6 +26,11 @@ var GameData = {
         for( var n = 0; n < names.length; n++ ) {
             for( var s = 0; s < suits.length; s++ ) {
                 this.deck.push(names[n] + " " + suits[s]);
+                //GameData.deck.push({
+                  //value: praseInt(names[n]),
+                  //suit: suits[s],
+                  //player: null,
+                //});
             }
         }
 
@@ -49,17 +65,7 @@ function dealNewDealerHand() {
     console.log("these are the value of the cards in dealerHandValue");
     return dealCards;
 }
-$('#startButton').click(function(){
 
-  dealNewPlayerHand();
-  dealNewDealerHand();
-  console.log("player hand is: " + playerHand);
-  console.log("dealer hand is: " + dealerHand);
-});
-
-$("#hitButton").click(function(){
-  hitButton();
-});
 function hitButton() {
     var dealCards = GameData.deck[Math.floor(Math.random() * GameData.deck.length)];
         console.log("hitPlayer function is working");
@@ -69,30 +75,37 @@ function hitButton() {
         console.log(playerHandValue);
         console.log("hit card is " + dealCards);
 }
+function hitDealer() {
+  var dealCards = GameData.deck[Math.floor(Math.random() * GameData.deck.length)];
+      console.log("hitDealer function is working");
+      dealerHand.push(dealCards);
+      dealerHandValue.push(parseInt(dealCards));
 
-function stand(){
-  //hit dealer until dealer score is < 17
+      console.log(playerHandValue);
+      console.log("hit card is " + dealCards);
+}
+
+function sumDealerHandValue(){
+  reduce(dealerHandValue);
+}
+
+function standButton(){
+    }//hit dealer until dealer score is < 17
+    sumDealerHandValue(dealerHandValue);
+    while (dealerHandValue < 17) {
+      hitDealer();
+    }
+}
+
+function winLose(){
   if ((dealerHandValue > 17) && (dealerHandValue < 21)) {
     console.log("You lose");
   } else if ((playerHandValue > 17) && (playerHandValue < 21)){
     console.log("You win");
-  } else {
-    console.log("Current score is " + playerHandValue);
-  }
-}
-$("#standButton").click(function(){
-  stand();
-});
-
-function win(){
-  if ((playerHandValue > 17) && (playerHandValue < 21)) {
-    console.log("you win");
-  }
-  if (playerHandValue === 11){
+  } if (playerHandValue === 11){
     console.log("you win");
   }
 }
-});
 
 
 
