@@ -1,10 +1,123 @@
+$(function(){
+var playerHand = [];
+var dealerHand = [];
+var playerHandValue = [];
+var dealerHandValue = [];
+
+
+// Deck Setup
+var GameData = {
+    deck: [],
+    buildDeck: function() {
+        var names = ['2', '3', '4', '5', '6', '7', '8', '9', '10', '10 J', '10 Q', '10 K', '11 A'];
+        var suits = ['Hearts','Diamonds','Spades','Clubs'];
+
+        for( var n = 0; n < names.length; n++ ) {
+            for( var s = 0; s < suits.length; s++ ) {
+                this.deck.push(names[n] + " " + suits[s]);
+            }
+        }
+
+
+    }
+};
+GameData.buildDeck();
+
+
+
+// Deal a new hand
+function dealNewPlayerHand() {
+    var dealCards = GameData.deck[Math.floor(Math.random() * GameData.deck.length)];
+    console.log('dealNewPlayerHand function is working');
+    for (var i = 0; i <= 1; i++) {
+        playerHand.push(GameData.deck[Math.floor(Math.random() * GameData.deck.length)]);
+        playerHandValue.push(parseInt(playerHand[i]));
+    }
+    console.log(playerHandValue);
+    console.log("these are the value of the cards in playerHandValue");
+    return dealCards;
+}
+
+function dealNewDealerHand() {
+    var dealCards = GameData.deck[Math.floor(Math.random() * GameData.deck.length)];
+    console.log("dealNewDealerHand function is working");
+    for (var i = 0; i <= 1; i++) {
+        dealerHand.push(GameData.deck[Math.floor(Math.random() * GameData.deck.length)]);
+        dealerHandValue.push(parseInt(dealerHand[i]));
+    }
+    console.log(dealerHandValue);
+    console.log("these are the value of the cards in dealerHandValue");
+    return dealCards;
+}
+$('#startButton').click(function(){
+
+  dealNewPlayerHand();
+  dealNewDealerHand();
+  console.log("player hand is: " + playerHand);
+  console.log("dealer hand is: " + dealerHand);
+});
+
+$("#hitButton").click(function(){
+  hitButton();
+});
+function hitButton() {
+    var dealCards = GameData.deck[Math.floor(Math.random() * GameData.deck.length)];
+        console.log("hitPlayer function is working");
+        playerHand.push(dealCards);
+        playerHandValue.push(parseInt(dealCards));
+
+        console.log(playerHandValue);
+        console.log("hit card is " + dealCards);
+}
+
+function stand(){
+  if ((dealerHandValue > 17) || (dealerHandValue < 21)) {
+    console.log("You lose");
+  } else if ((playerHandValue > 17) || (playerHandValue < 21)){
+    console.log("You win");
+  } else {
+    console.log("Current score is " + playerHandValue);
+  }
+}
+$("#standButton").click(function(){
+  stand();
+});
+
+function win(){
+  
+}
+
+//check to see if player's score is over 21
+function checkScore() {
+  if(players[currentPlayer].Points > 21) {
+    document.getElementById('status').innerHTML = 'You lose.';
+    console.log("checkScore is running");
+  }
+}
+});
+
+
+
+
+
+
+
+
+/*
+var suites = ["clubs", "spades", "diamonds", "hearts"];
+var value = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "King", "Queen", "Jack"];
+var deck = [];
+var card = [];
+
 $(document).ready(function(){
     $('#startButton').click(function(){
        start();
        shuffle();
-       //createPlayer();
+       createPlayer();
        dealCards();
-
+       makeUI();
+       renderCard();
+       getCardUI();
     });
     $('#hitButton').click(function(){
       hit();
@@ -16,9 +129,7 @@ $(document).ready(function(){
 
 //build a deck
 //tried one big array, doesn't work that well, make arrays for suites + values then push to a deck
-var suites = ["clubs", "spades", "diamonds", "hearts"];
-var value = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "King", "Queen", "Jack"];
-var deck = [];
+
 //assemble arrays and push to deck
   //make sure face card values are being assessed
 function start(){
@@ -53,18 +164,21 @@ function start(){
     }
   };
 
-  var playerHand = [];
 
-  function createPlayer(num){
-    var player = [];
+var players = [];
+
+function createPlayer(num){
+    var players = [];
     for (var i = 0; i <= num; i++){
       var hand = [];
       player = [ {Name: 'Player ' + i, ID: i, Points: 0, Hand: hand} ];
               playerHand.push(player);
-              console.log("player created");
+
     }
+      console.log("player created");
   }
-  function dealCards() {
+
+function dealCards() {
     for(var i = 0; i < 2; i++)
     {
         for (var j = 0; j < players.length; j++)
@@ -74,6 +188,7 @@ function start(){
             renderCard(card, j);
             updatePoints();
         }
+        console.log(playerHand);
     }
   // //var updateDeck = function
       //GIVEN: player hand exists - and it does
@@ -83,8 +198,8 @@ function start(){
       //can i edit this out
       console.log("deck updated");
   }
-});
-
+}
+);
 
     function makeUI() {
     {
@@ -97,10 +212,10 @@ function start(){
            var div_points = document.createElement('div');
 
            div_points.className = 'points';
-           div_points.id = 'points ' + i;
-           div_player.id = 'player ' + i;
+           div_points.id = 'points_' + i;
+           div_player.id = 'player_' + i;
            div_player.className = 'player';
-           div_hand.id = 'hand ' + i;
+           div_hand.id = 'hand_' + i;
 
            div_playerid.innerHTML = players[i].ID;
            div_player.appendChild(div_playerid);
@@ -116,15 +231,24 @@ function start(){
 
 function renderCard(card, player){
         var hand = document.getElementById('hand_' + player);
-        hand.appendChild(getCardUI(card));
+        playerHand.appendChild(getCardUI(card));
     }
 
-    function getCardUI(card){
+function getCardUI(card){
+        console.log("You called getCardUI function");
         var el = document.createElement('div');
-        el.className = 'card';
-        el.innerHTML = card.Suit + ' ' + card.Value;
+        console.log(card);
+        console.log(el);
+        elClassName = 'card';
+        console.log(elClassName);
+        el.className = elClassName;
+        elInner = card.Suites + ' ' + card.Value;
+        console.log(elInner);
+        el.innerHTML = card.Suites + ' ' + card.Value;
+        console.log(playerHand[0].suites);
         return el;
     }
+
 
 //shfufle the deck you just made
   //make two positions and then move cards based on those
@@ -154,16 +278,15 @@ function renderCard(card, player){
 
 //Hit button
 var currentPlayer = 0;
-
 function hit(){
   //take a card from deck and pop to player
   var card = deck.pop();
-  playerHand.push(card);
+    playerHand.push(card);
     //what is the hand thats being used here
-  renderCard(card, currentPlayer);
-  updatePoints();
-  checkScore();
-  console.log("hit button is working");
+    renderCard(card, currentPlayer);
+    updatePoints();
+    checkScore();
+    console.log("hit button is working");
 }
 
 //check to see if player's score is over 21
@@ -212,3 +335,4 @@ function stop(){
   //there isnt a start fiunction
   //everything is tied to some othr function so nothing is happening
   //hit function doesnt
+*/
