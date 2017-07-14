@@ -71,6 +71,8 @@ function start(){
             updatePoints();
         }
     }
+    updateDeck();
+    console.log("deck updated");
   }
 
 
@@ -100,9 +102,7 @@ function start(){
     }
 }
 
-  updateDeck();
-  console.log("deck updated");
-});
+
 
 function renderCard(card, player) {
   var hand = document.getElementById('hand ' + player);
@@ -194,6 +194,8 @@ function stop(){
   document.getElementById('status').innerHTML = "Winner: Player " + players[winner].ID;
   console.log("stop function is working");
 }
+});
+
 
 
 //issues:
