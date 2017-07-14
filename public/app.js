@@ -71,9 +71,10 @@ function hitButton() {
 }
 
 function stand(){
-  if ((dealerHandValue > 17) || (dealerHandValue < 21)) {
+  //hit dealer until dealer score is < 17
+  if ((dealerHandValue > 17) && (dealerHandValue < 21)) {
     console.log("You lose");
-  } else if ((playerHandValue > 17) || (playerHandValue < 21)){
+  } else if ((playerHandValue > 17) && (playerHandValue < 21)){
     console.log("You win");
   } else {
     console.log("Current score is " + playerHandValue);
@@ -84,14 +85,11 @@ $("#standButton").click(function(){
 });
 
 function win(){
-  
-}
-
-//check to see if player's score is over 21
-function checkScore() {
-  if(players[currentPlayer].Points > 21) {
-    document.getElementById('status').innerHTML = 'You lose.';
-    console.log("checkScore is running");
+  if ((playerHandValue > 17) && (playerHandValue < 21)) {
+    console.log("you win");
+  }
+  if (playerHandValue === 11){
+    console.log("you win");
   }
 }
 });
@@ -327,7 +325,12 @@ function stop(){
   console.log("stop function is working");
 }
 
-
+/check to see if player's score is over 21
+function checkScore() {
+  if(players[currentPlayer].Points > 21) {
+    document.getElementById('status').innerHTML = 'You lose.';
+    console.log("checkScore is running");
+  }
 
 
 //issues:
