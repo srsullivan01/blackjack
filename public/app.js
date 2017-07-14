@@ -1,6 +1,8 @@
 $(document).ready(function(){
     $('#startButton').click(function(){
        start();
+       shuffle();
+       dealCards();
     });
     $('#hitButton').click(function(){
       hit();
@@ -8,7 +10,7 @@ $(document).ready(function(){
     $('#standButton').click(function(){
       stand();
     });
-  });
+
 
 //build a deck
 //tried one big array, doesn't work that well, make arrays for suites + values then push to a deck
@@ -31,8 +33,10 @@ function start(){
                var card = { Value: value[i], Suit: suites[h], Weight: weight };
                deck.push(card);
                console.log("you've got a deck");
+               console.log(deck);
              }
            }
+         }
    var shuffle = function(){
     for (var i = 0; i < 1000; i++)
     //shuffling 1000 times for max randomization. could easily have used any number over 52
@@ -53,8 +57,23 @@ function start(){
       var hand = [];
       player = [ {Name: 'Player ' + i, ID: i, Points: 0, Hand: hand} ];
               playerHand.push(player);
-              console.log("cards are dealt to hands");
+              console.log("player created");
     }
+  }
+  function dealCards() {
+    for(var i = 0; i < 2; i++)
+    {
+        for (var j = 0; j < players.length; j++)
+        {
+            var card = deck.pop();
+            players[j].Hand.push(card);
+            renderCard(card, j);
+            updatePoints();
+        }
+    }
+  }
+
+
     function makeUI() {
     {
        document.getElementById('players').innerHTML = '';
@@ -80,36 +99,24 @@ function start(){
        console.log("UI set up");
     }
 }
-function dealCards() {
-  for(var i = 0; i < 2; i++)
-  {
-      for (var j = 0; j < players.length; j++)
-      {
-          var card = deck.pop();
-          players[j].Hand.push(card);
-          renderCard(card, j);
-          updatePoints();
-      }
-  }
 
   updateDeck();
   console.log("deck updated");
-}
-function renderCard(card, player){
+});
+
+function renderCard(card, player) {
   var hand = document.getElementById('hand ' + player);
   hand.appendChild(getCardInterface(card));
   console.log("renderCard function is going");
 }
+  function getCardInterface(card){
+    var cardDiv = document.createElement('div');
+    cardDiv.className = 'card';
+    cardDiv.innerHTML = card.Suites + " " + card.Value;
+    console.log("getCardInterface is running");
+    return cardDiv;
+  }
 
-function getCardInterface(card){
-  var cardDiv = document.createElement('div');
-  cardDiv.className = 'card';
-  cardDiv.innerHTML = card.Suites + " " + card.Value;
-  console.log("getCardInterface is running");
-  return cardDiv;
-}
-}
-}
 
 //shfufle the deck you just made
   //make two positions and then move cards based on those
@@ -143,7 +150,7 @@ var currentPlayer = 0;
 function hit(){
   //take a card from deck and pop to player
   var card = deck.pop();
-  players[currentPlayer].Hand.push(card);
+  players[currentPlayer].hand.push(card);
   renderCard(card, currentPlayer);
   updatePoints();
   checkScore();
@@ -187,6 +194,7 @@ function stop(){
   document.getElementById('status').innerHTML = "Winner: Player " + players[winner].ID;
   console.log("stop function is working");
 }
+
 
 //issues:
   //nothing happens when i click restart--SOLVED
