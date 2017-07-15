@@ -3,21 +3,21 @@ var playerHand = [];
 var dealerHand = [];
 var playerHandValue = [];
 var dealerHandValue = [];
-
+$(function() {
+  winLose();
+});
 $('#startButton').click(function(){
   dealNewPlayerHand();
   dealNewDealerHand();
   console.log("player hand is: " + playerHand);
   console.log("dealer hand is: " + dealerHand);
-  winLose();
 });
 $("#hitButton").click(function(){
   hitButton();
-  winLose();
 });
+
 $("#standButton").click(function(){
   standButton();
-  winLose();
 });
 
 // Deck Setup
@@ -46,7 +46,7 @@ GameData.buildDeck();
 
 
 
-// Deal a new hand
+// Deal a new hand to player
 function dealNewPlayerHand() {
     var dealCards = GameData.deck[Math.floor(Math.random() * GameData.deck.length)];
     console.log('dealNewPlayerHand function is working');
@@ -58,7 +58,7 @@ function dealNewPlayerHand() {
     console.log("these are the value of the cards in playerHandValue");
     return dealCards;
 }
-
+//deal to dealer
 function dealNewDealerHand() {
     var dealCards = GameData.deck[Math.floor(Math.random() * GameData.deck.length)];
     console.log("dealNewDealerHand function is working");
@@ -70,7 +70,7 @@ function dealNewDealerHand() {
     console.log("these are the value of the cards in dealerHandValue");
     return dealCards;
 }
-
+//hit button for player
 function hitButton() {
     var dealCards = GameData.deck[Math.floor(Math.random() * GameData.deck.length)];
         console.log("hitPlayer function is working");
@@ -80,7 +80,7 @@ function hitButton() {
         console.log(playerHandValue);
         console.log("hit card is " + dealCards);
 }
-
+//hit dealer
 function hitDealer() {
   var dealCards = GameData.deck[Math.floor(Math.random() * GameData.deck.length)];
       console.log("hitDealer function is working");
@@ -90,7 +90,8 @@ function hitDealer() {
       console.log(playerHandValue);
       console.log("hit card is " + dealCards);
 }
-function sumPlayerHandValue(array) {
+//score player hand
+var sumPlayerHandValue = function(array) {
     console.log("sumPlayerHandValue working");
     var sumPlayer = 0;
     for (var i = 0; i < playerHandValue.length; i++) {
@@ -101,8 +102,9 @@ function sumPlayerHandValue(array) {
 
 
     console.log("Player total is: " + sumPlayer);
-}
-function sumDealerHandValue(array) {
+};
+//score dealer hand
+var sumDealerHandValue= function(array) {
     console.log("sumDealerHandValue working");
     var sumDealer = 0;
     for (var i = 0; i < dealerHandValue.length; i++) {
@@ -112,22 +114,44 @@ function sumDealerHandValue(array) {
     }
 
     console.log("Dealer total is: " + sumDealer);
-}
+};
 
+//player stands
 function standButton(){
     //hit dealer until dealer score is < 17
-    while (sumDealerHandValue < 17) {
       hitDealer();
       console.log(dealerHandValue);
-    }
 }
-function winLose(){
-  if ((dealerHandValue > 17) && (dealerHandValue < 21)) {
-    console.log("You lose");
-  } else if ((playerHandValue > 17) && (playerHandValue < 21)){
-    console.log("You win");
-  } if (playerHandValue === 11){
-    console.log("you win");
+
+//evaluate win or loss conditions
+function checkScore() {
+  if(sumPlayerHandValue < 22) {
+    if(sumPlayerHandValue > sumDealerHandValue) {
+      console.log("you win");
+      //when you add images change this
+    }
+    else {
+      if(sumDealerHandValue < 22) {
+        if(sumDealerHandValue === sumPlayerHandValue) {
+          console.log("its a draw");
+          //vhange here when adding images
+        }
+        else {
+          console.log("you lose");
+          //change to append something
+        }
+      }
+    }
+    if(sumDealerHandValue > 21) {
+      console.log("you win");
+      //you'll call the win function again here
+    }
+  }
+  else{
+    console.log("you lose");
+    //call the lose function here
   }
 }
-});
+)};
+//need to console log or otherwise show total of dealer and playerHand
+//need to evaluate dealer and player total and see which is higher
