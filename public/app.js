@@ -26,13 +26,13 @@ var GameData = {
 
         for( var n = 0; n < names.length; n++ ) {
             for( var s = 0; s < suits.length; s++ ) {
-                this.deck.push(names[n] + " " + suits[s]);
-                //GameData.deck.push({
-                  //value: praseInt(names[n]),
-                  //suit: suits[s],
-                  //player: null,
-                  //image: null,
-                //});
+                //this.deck.push(names[n] + " " + suits[s]);
+                GameData.deck.push({
+                  value: praseInt(names[n]),
+                  suit: suits[s],
+                  player: null,
+                  image: (parseInt(valueOfCard[n]) + "_" + suits[s] + ".png"),
+                });
             }
         }
 
@@ -157,6 +157,24 @@ function checkScore() {
     //call the lose function here
   }
 }
+
+
+
+//write function to generate images based on value of cards
+  //see the parseInt at the begining of document for partial fill
+function getImage(){
+  //this gets the image
+  imagePath= parseInt(valueOfCard[n]) + "_" + suits[s] + ".png";
+  //this appends the image to where it needs to be
+  var cardFront1 = document.getElementById('cardFront1');
+  img.onload = function() {
+  div.appendChild(image);
+};
+image.src = imagePath;
+}
+//attach that function to hit and dealCards
+
+//display messages in game board (you win, you lose, etc
+
+//append player's score to scorebox on board
 });
-//need to console log or otherwise show total of dealer and playerHand
-//need to evaluate dealer and player total and see which is higher
