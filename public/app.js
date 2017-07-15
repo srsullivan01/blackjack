@@ -16,19 +16,20 @@ $("#hitButton").click(function(){
 $("#standButton").click(function(){
   standButton();
 });
+displayScore();
 
 // Deck Setup
 var GameData = {
     deck: [],
     buildDeck: function() {
-        var names = ['2', '3', '4', '5', '6', '7', '8', '9', '10', '10 J', '10 Q', '10 K', '11 A'];
+        var valueOfCard = ['2', '3', '4', '5', '6', '7', '8', '9', '10', '10 J', '10 Q', '10 K', '11 A'];
         var suits = ['Hearts','Diamonds','Spades','Clubs'];
 
-        for( var n = 0; n < names.length; n++ ) {
+        for( var n = 0; n < valueOfCard.length; n++ ) {
             for( var s = 0; s < suits.length; s++ ) {
-                //this.deck.push(names[n] + " " + suits[s]);
+                //this.deck.push(valueOfCard[n] + " " + suits[s]);
                 GameData.deck.push({
-                  value: praseInt(names[n]),
+                  value: parseInt(valueOfCard[n]),
                   suit: suits[s],
                   player: null,
                   image: (parseInt(valueOfCard[n]) + "_" + suits[s] + ".png"),
@@ -49,9 +50,9 @@ function dealNewPlayerHand() {
     console.log('dealNewPlayerHand function is working');
     for (var i = 0; i <= 1; i++) {
         playerHand.push(GameData.deck[Math.floor(Math.random() * GameData.deck.length)]);
-        playerHandValue.push(parseInt(playerHand[i]));
+        playerHand.push(parseInt(playerHand[i]));
     }
-    console.log(playerHandValue);
+    console.log(playerHand);
     console.log("these are the value of the cards in playerHandValue");
     return dealCards;
 }
@@ -61,10 +62,10 @@ function dealNewDealerHand() {
     console.log("dealNewDealerHand function is working");
     for (var i = 0; i <= 1; i++) {
         dealerHand.push(GameData.deck[Math.floor(Math.random() * GameData.deck.length)]);
-        dealerHandValue.push(parseInt(dealerHand[i]));
+        dealerHand.push(parseInt(dealerHand[i]));
     }
     console.log(dealerHandValue);
-    console.log("these are the value of the cards in dealerHandValue");
+    console.log("these are the value of the cards in dealerHandV");
     return dealCards;
 }
 //hit button for player
@@ -72,9 +73,9 @@ function hitButton() {
     var dealCards = GameData.deck[Math.floor(Math.random() * GameData.deck.length)];
         console.log("hitPlayer function is working");
         playerHand.push(dealCards);
-        playerHandValue.push(parseInt(dealCards));
+        playerHand.push(parseInt(dealCards));
 
-        console.log(playerHandValue);
+        console.log(playerHand);
         console.log("hit card is " + dealCards);
         checkScore();
 }
@@ -85,7 +86,7 @@ function hitDealer() {
       dealerHand.push(dealCards);
       dealerHandValue.push(parseInt(dealCards));
 
-      console.log(playerHandValue);
+      console.log(playerHand);
       console.log("hit card is " + dealCards);
 }
 //score player hand
@@ -172,9 +173,13 @@ function getImage(){
 };
 image.src = imagePath;
 }
+//sum values in playerHand object
 //attach that function to hit and dealCards
 
 //display messages in game board (you win, you lose, etc
+function displayScore(){
+  $( ".scorebox" ).append( "<p>19</p>" );
+}
 
 //append player's score to scorebox on board
 });
