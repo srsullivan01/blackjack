@@ -3,9 +3,6 @@ var playerHand = [];
 var dealerHand = [];
 var playerHandValue = [];
 var dealerHandValue = [];
-$(function() {
-  winLose();
-});
 $('#startButton').click(function(){
   dealNewPlayerHand();
   dealNewDealerHand();
@@ -79,6 +76,7 @@ function hitButton() {
 
         console.log(playerHandValue);
         console.log("hit card is " + dealCards);
+        checkScore();
 }
 //hit dealer
 function hitDealer() {
@@ -118,11 +116,18 @@ var sumDealerHandValue= function(array) {
 
 //player stands
 function standButton(){
-    //hit dealer until dealer score is < 17
+  if (sumPlayerHandValue < 22){
+    if (sumDealerHandValue < 17) {
       hitDealer();
-      console.log(dealerHandValue);
+    }
+    else {
+      checkScore();
+    }
 }
-
+  else {
+    checkScore();
+  }
+}
 //evaluate win or loss conditions
 function checkScore() {
   if(sumPlayerHandValue < 22) {
@@ -152,6 +157,6 @@ function checkScore() {
     //call the lose function here
   }
 }
-)};
+});
 //need to console log or otherwise show total of dealer and playerHand
 //need to evaluate dealer and player total and see which is higher
