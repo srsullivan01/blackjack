@@ -2,7 +2,7 @@
 Presented here is the starting code for a game of blackjack, built primarily with JavaScript. Potential future development might include adding an option to place bets, adding additional images for cards and allowing players to choose from multiple decks, storing high scores, and allowing the player to input their name.
 
 __Play Here:__
-<a href="http://beggar-clarice-50150.bitballoon.com/""> click to play </a>
+<a href="http://preacher-diameters-37558.bitballoon.com/"> click to play </a>
 
 __Trello Board:__
  <a href="https://trello.com/b/Y9LoYkWs/wdi-unit-1-project-blackjack">Click to view </a>
