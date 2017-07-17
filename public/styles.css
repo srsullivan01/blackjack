@@ -1,3 +1,7 @@
+body{
+  background-color: #AFCBFF;
+}
+
 .allThings {
   display: flex;
   flex-direction: row;
@@ -13,23 +17,20 @@
   align-self: left;
   margin: 10px;
   padding: 30px;
-  background-color: #29b6f6;
+  background-color: #0E1C36;
 }
 
-button {
-  height: 30px;
-  width: 50px;
-}
+
 
 .game-board {
   display: flex;
   align-self: flex-end;
   flex: 1 auto;
-  height:600px;
-  width: 900px;
+  height auto;
+  width: auto;
   margin: 10px;
   padding: 30px;
-  background-color: #009688;
+  background-color: #0E1C36;
 }
 
 a {
@@ -37,7 +38,11 @@ a {
 }
 
 h2 {
-  color: white;
+  color: #FFEDE1;
+}
+
+h5 {
+  color: #FFEDE1;
 }
 
 .dealer {
@@ -45,10 +50,30 @@ h2 {
   justify-content: center;
   flex-direction: column;
   text-align: center;
+  align-self: flex-start;
 }
+
 .playerName {
   display: flex;
   justify-content: center;
   flex-direction: column-reverse;
   text-align: center;
+  align-self: flex-end;
+}
+
+.cardRow{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+.dealerHandDiv{
+  display: flex;
+  flex-direction: row;
+ justify-content: space-between;
+}
+.dealerCardRow{
+  display: flex;
+  flex-direction: row;
+   justify-content: space-between;
 }

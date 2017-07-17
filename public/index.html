@@ -8,7 +8,9 @@
   </head>
   <body>
     <span class="all-things">
-    <div class="col s12 m4 l3">
+
+<div class="row">
+ <div class="col s3">
               <span class="left-column">
                 <input type="button" class="btn" value="hit" id="hitButton"/>
                 <input type="button" class="btn" value="stand" id="standButton"/>
@@ -16,36 +18,40 @@
                 <div class="container">
                 <div class="row">
                   <div class="col l6 s12">
-                    <h5 class="white-text">Your Score Is:</h5>
-                    <p class="grey-text text-lighten-4">Your score is:</p>
+                    <h5>Your Score Is:</h5>
+                    <div id="scorebox"></div>
                   </div>
                 </div>
               </div>
-
             </div>
 </span>
-        <div class="col s12 m8 l9">
+
+
+
+ <div class="col s9">
           <div class="game-board">
             <div id="players" class="players">
           <div class="dealer-hand">
+            <h2 class="dealer"> Dealer </h2>
             <div id="deck" class="deck">
             <img class="deckBack" src="../public/images/deck_2.png"/>
+          </div>
+          <div class="row">
+
+              <div id="dealerHandDiv"></div>
+            </div>
           <div class="status" id="status"></div>
         </div>
-            <h2 class="dealer"> Dealer </h2>
-            <div id="dealerHandDiv"></div>
             <img class="first-card-dealer" src=""/>
             <img class="second-card-dealer" src=""/>
           </div>
-          <div id="playerHandDiv"></div> 
 
+          <div id="playerHandDiv" class="row s5"></div>
             <h2 class="playerName"> Player </h2>
             </div>
           </div>
         </div>
         </div>
-
-      </div>
 </span>
   <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"

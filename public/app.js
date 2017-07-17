@@ -21,7 +21,6 @@ $("#standButton").click(function(){
   dealerTurn();
 });
 
-displayScore();
 
 function card(name, image, suit, value){
   this.name = name;
@@ -135,6 +134,7 @@ function hitButton() {
         console.log(playerHand);
         console.log("hit card is " + dealCards);
         checkScore();
+        makeImageThree();
           console.log("hitPlayer function is working");
 }
 //hit dealer
@@ -148,37 +148,23 @@ function dealerTurn(){
 
 }
 
-  //var dealCards = GameData.deck[Math.floor(Math.random() * GameData.deck.length)];
-      //console.log("hitDealer function is working");
-      //dealerHand.push(dealCards);
-      //dealerHand.push(parseInt(dealCards));
-
-      //console.log(playerHand);
-      //console.log("hit card is " + dealCards);
-//}
 //score player hand
 var sumPlayerHand = function(array) {
     console.log("sumPlayerHand working");
     var sumPlayer = 0;
     for (var i = 0; i < playerHand.length; i++) {
-
     sumPlayer = sumPlayer + array[i];
-
     }
-
-
     console.log("Player total is: " + sumPlayer);
 };
+
 //score dealer hand
 var sumDealerHand= function(array) {
     console.log("sumDealerHand working");
     var sumDealer = 0;
     for (var i = 0; i < dealerHand.length; i++) {
-
     sumDealer = sumDealer + array[i];
-
     }
-
     console.log("Dealer total is: " + sumDealer);
 };
 
@@ -197,19 +183,20 @@ function standButton(){
   }
   console.log("you hit stand");
 }
+
 //evaluate win or loss conditions
 function checkScore() {
   if(sumPlayerHand < 22) {
     if(sumPlayerHand > sumDealerHand) {
       console.log("you win");
-      displayScore();
+      //displayScore();
       //when you add images change this
     }
     else {
       if(sumDealerHand < 22) {
         if(sumDealerHand === sumPlayerHand) {
           console.log("its a draw");
-          displayScore();
+          //displayScore();
           //vhange here when adding images
         }
         else {
@@ -221,7 +208,7 @@ function checkScore() {
     }
     if(sumDealerHand > 21) {
       console.log("you win");
-      displayScore();
+      //displayScore();
       //you'll call the win function again here
     }
   }
@@ -230,42 +217,49 @@ function checkScore() {
     displayScore();
     //call the lose function here
   }
-  displayScore();
+  //displayScore();
 }
 
 
 //build and attach images for player
 function makeImageOne() {
 var buildCardImage1 = playerHand[0].image;
-
         var cardLink = document.createElement("a");
-
-        //cardLink.href = "images/" + valueOfCard[n] + "_" + suits[s] + ".png";
         cardLink.alt = "playerHand.image isnt linking to card";
-
         var img = document.createElement("img");
+        img.setAttribute("class", "cardRow" );
         img.src = buildCardImage1;
-
         cardLink.appendChild(img);
         document.getElementById("playerHandDiv").appendChild(cardLink);
         console.log("image being built" + buildCardImage1);
       }
+
 function makeImageTwo() {
   var buildCardImage2 = playerHand[1].image;
-
           var cardLink = document.createElement("a");
           cardLink.alt = "playerHand.image isnt linking to card";
           var img = document.createElement("img");
+          img.setAttribute("class", "cardRow" );
           img.src = buildCardImage2;
           cardLink.appendChild(img);
           document.getElementById("playerHandDiv").appendChild(cardLink);
         }
-
+function makeImageThree() {
+  var buildCardImage3 = playerHand[2].image;
+          var cardLink = document.createElement("a");
+          cardLink.alt = "playerHand.image isnt linking to card";
+          var img = document.createElement("img");
+          img.setAttribute("class", "cardRow" );
+          img.src = buildCardImage3;
+          cardLink.appendChild(img);
+          document.getElementById("playerHandDiv").appendChild(cardLink);
+        }
 function makeDealerImageOne() {
   var buildDealerCardOne = dealerHand[0].image;
           var cardLink = document.createElement("a");
           cardLink.alt = "dealerHand.image isnt linking to card";
           var img = document.createElement("img");
+          img.setAttribute("class", "dealerCardRow" );
           img.src = buildDealerCardOne;
           cardLink.appendChild(img);
           document.getElementById("dealerHandDiv").appendChild(cardLink);
@@ -275,21 +269,20 @@ function makeDealerImageTwo() {
           var cardLink = document.createElement("a");
           cardLink.alt = "dealerHand.image isnt linking to card";
           var img = document.createElement("img");
+          img.setAttribute("class", "dealerCardRow" );
           img.src = buildDealerCardTwo;
           cardLink.appendChild(img);
           document.getElementById("dealerHandDiv").appendChild(cardLink);
         }
-//sum values in playerHand object
-//attach that function to hit and dealCards
+
 
 //display messages in game board (you win, you lose, etc
-function displayScore(){
-  $("#scorebox" ).append(playerHand.value);
-}
+
 /*TO DO
--put column back where it goes
--expand gameboard so cards all fit on it
--make it more clear which card is dealer and which is player
+-put column back where it goes DONE
+-tell hit function to display a third card DONE
+-expand gameboard so cards all fit on it DONE
+-make it more clear which card is dealer and which is player DONE
 -either append "you lose" and other messages to game board OR (less idea) make them alerts
 //append player's score to scorebox on board */
 });
