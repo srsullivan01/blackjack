@@ -109,7 +109,6 @@ function dealNewPlayerHand() {
     makeImageTwo();
     console.log(playerHand);
     console.log("these are the value of the cards in playerHandValue");
-
     return dealCards;
 }
 
@@ -121,8 +120,9 @@ function hitDealer() {
     console.log("dealNewDealerHand function is working");
     for (var i = 0; i <= 1; i++) {
         dealerHand.push(GameData.deck[Math.floor(Math.random() * GameData.deck.length)]);
-
     }
+    makeDealerImageOne();
+    makeDealerImageTwo();
     console.log(dealerHand);
     console.log("these are the value of the cards in dealerHand");
     return dealCards;
@@ -132,8 +132,6 @@ function hitDealer() {
 function hitButton() {
     var dealCards = GameData.deck[Math.floor(Math.random() * GameData.deck.length)];
         playerHand.push(dealCards);
-
-
         console.log(playerHand);
         console.log("hit card is " + dealCards);
         checkScore();
@@ -256,16 +254,30 @@ function makeImageTwo() {
   var buildCardImage2 = playerHand[1].image;
 
           var cardLink = document.createElement("a");
-
-          //cardLink.href = "images/" + valueOfCard[n]+ "_" + suits[s] + ".png";
           cardLink.alt = "playerHand.image isnt linking to card";
-
           var img = document.createElement("img");
           img.src = buildCardImage2;
-
           cardLink.appendChild(img);
           document.getElementById("playerHandDiv").appendChild(cardLink);
+        }
 
+function makeDealerImageOne() {
+  var buildDealerCardOne = dealerHand[0].image;
+          var cardLink = document.createElement("a");
+          cardLink.alt = "dealerHand.image isnt linking to card";
+          var img = document.createElement("img");
+          img.src = buildDealerCardOne;
+          cardLink.appendChild(img);
+          document.getElementById("dealerHandDiv").appendChild(cardLink);
+        }
+function makeDealerImageTwo() {
+  var buildDealerCardTwo = dealerHand[1].image;
+          var cardLink = document.createElement("a");
+          cardLink.alt = "dealerHand.image isnt linking to card";
+          var img = document.createElement("img");
+          img.src = buildDealerCardTwo;
+          cardLink.appendChild(img);
+          document.getElementById("dealerHandDiv").appendChild(cardLink);
         }
 //sum values in playerHand object
 //attach that function to hit and dealCards
@@ -274,6 +286,10 @@ function makeImageTwo() {
 function displayScore(){
   $("#scorebox" ).append(playerHand.value);
 }
-
-//append player's score to scorebox on board
+/*TO DO
+-put column back where it goes
+-expand gameboard so cards all fit on it
+-make it more clear which card is dealer and which is player
+-either append "you lose" and other messages to game board OR (less idea) make them alerts
+//append player's score to scorebox on board */
 });
