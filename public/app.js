@@ -201,7 +201,7 @@ function checkScore() {
         }
         else {
           console.log("you lose");
-          displayScore();
+          //displayScore();
           //change to append something
         }
       }
@@ -214,7 +214,7 @@ function checkScore() {
   }
   else{
     console.log("you lose");
-    displayScore();
+    //displayScore();
     //call the lose function here
   }
   //displayScore();
@@ -284,5 +284,5 @@ function makeDealerImageTwo() {
 -expand gameboard so cards all fit on it DONE
 -make it more clear which card is dealer and which is player DONE
 -either append "you lose" and other messages to game board OR (less idea) make them alerts
-//append player's score to scorebox on board */
+-append player's score to scorebox on board */
 });
