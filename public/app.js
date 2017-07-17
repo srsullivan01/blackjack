@@ -27,7 +27,7 @@ function card(name, image, suit, value){
   this.name = name;
   this.image = image;
   this.suit = suit;
-  this.value = balue;
+  this.value = value;
 }
 
 // Deck Setup
@@ -36,7 +36,7 @@ var GameData = {
     buildDeck: function() {
         for( var n = 0; n < valueOfCard.length; n++ ) {
             for( var s = 0; s < suits.length; s++ ) {
-                //this.deck.push(valueOfCard[n] + " " + suits[s]);
+
                 GameData.deck.push({
                   value: parseInt(valueOfCard[n]),
                   suit: suits[s],
@@ -103,8 +103,10 @@ function dealNewPlayerHand() {
     console.log('dealNewPlayerHand function is working');
     for (var i = 0; i <= 1; i++) {
         playerHand.push(GameData.deck[Math.floor(Math.random() * GameData.deck.length)]);
-        //playerHand.push(parseInt(playerHand[i]));
+
     }
+    makeImageOne();
+    makeImageTwo();
     console.log(playerHand);
     console.log("these are the value of the cards in playerHandValue");
 
@@ -119,7 +121,7 @@ function hitDealer() {
     console.log("dealNewDealerHand function is working");
     for (var i = 0; i <= 1; i++) {
         dealerHand.push(GameData.deck[Math.floor(Math.random() * GameData.deck.length)]);
-        //dealerHand.push(parseInt(dealerHand[i]));
+
     }
     console.log(dealerHand);
     console.log("these are the value of the cards in dealerHand");
@@ -130,7 +132,7 @@ function hitDealer() {
 function hitButton() {
     var dealCards = GameData.deck[Math.floor(Math.random() * GameData.deck.length)];
         playerHand.push(dealCards);
-        //playerHand.push(parseInt(dealCards));
+
 
         console.log(playerHand);
         console.log("hit card is " + dealCards);
@@ -234,26 +236,13 @@ function checkScore() {
 }
 
 
-
-//write function to generate images based on value of cards
-  //see the parseInt at the begining of document for partial fill
-//function getImage(){
-  //this gets the image
-  //imagePath= "images/small/" + parseInt(valueOfCard[n]) + "_" + suits[s] + ".png";
-  //this appends the image to where it needs to be
-  //var cardFront1 = document.getElementById('cardFront1');
-  //img.onload = function() {
-    //$('#cardFront1').append("<img src=" + imagePath + "/>");
-//};
-//image.src = imagePath;
-//}
 //build and attach images for player
-function makeImage() {
+function makeImageOne() {
 var buildCardImage1 = playerHand[0].image;
 
         var cardLink = document.createElement("a");
 
-        cardLink.href = "images/" + valueOfCard[n] + "_" + suits[s] + ".png";
+        //cardLink.href = "images/" + valueOfCard[n] + "_" + suits[s] + ".png";
         cardLink.alt = "playerHand.image isnt linking to card";
 
         var img = document.createElement("img");
@@ -261,7 +250,23 @@ var buildCardImage1 = playerHand[0].image;
 
         cardLink.appendChild(img);
         document.getElementById("playerHandDiv").appendChild(cardLink);
+        console.log("image being built" + buildCardImage1);
       }
+function makeImageTwo() {
+  var buildCardImage2 = playerHand[1].image;
+
+          var cardLink = document.createElement("a");
+
+          //cardLink.href = "images/" + valueOfCard[n]+ "_" + suits[s] + ".png";
+          cardLink.alt = "playerHand.image isnt linking to card";
+
+          var img = document.createElement("img");
+          img.src = buildCardImage2;
+
+          cardLink.appendChild(img);
+          document.getElementById("playerHandDiv").appendChild(cardLink);
+
+        }
 //sum values in playerHand object
 //attach that function to hit and dealCards
 
