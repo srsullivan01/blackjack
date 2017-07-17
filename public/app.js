@@ -9,16 +9,18 @@ var suits = ['Hearts','Diamonds','Spades','Clubs'];
 
 $('#startButton').click(function(){
   dealNewPlayerHand();
-  dealNewDealerHand();
+  hitDealer();
   console.log("player hand is: " + playerHand.value);
   console.log("dealer hand is: " + dealerHand.value);
 });
 $("#hitButton").click(function(){
-  hitButton();
+  hitButton(playerHand);
+  showValue();
 });
 
 $("#standButton").click(function(){
-  standButton();
+  hitDealer();
+  dealerTurn();
 });
 displayScore();
 
@@ -33,9 +35,6 @@ function card(name, image, suit, value){
 var GameData = {
     deck: [],
     buildDeck: function() {
-        var valueOfCard = ['2', '3', '4', '5', '6', '7', '8', '9', '10', '10 J', '10 Q', '10 K', '11 A'];
-        var suits = ['Hearts','Diamonds','Spades','Clubs'];
-
         for( var n = 0; n < valueOfCard.length; n++ ) {
             for( var s = 0; s < suits.length; s++ ) {
                 this.deck.push(valueOfCard[n] + " " + suits[s]);
@@ -57,7 +56,8 @@ function yourHand() {
   this.cards=[];
   this.value = 0;
 }
-function start() {
+//get game started
+function startButton() {
   playerHand = new yourHand();
   dealerHand = new yourHand();
   playerHand.player = 'player';
@@ -68,12 +68,57 @@ function start() {
     win();
     $('.buttons').addClass('hide');
     $('#reset').removeClass('hide');
-    if(deck.length < 10) {
-      shuffleDeck();
-    }
   }
 }
 
+function startHand(){
+  for (var i = 0; i < 2; i++){
+    hitButton(playerHand);
+  }
+  hitDealer();
+}
+
+function showValue() {
+  $('#game-board').append('<div class="player-value">' + playerHand.toString() + '</div>');
+  if (playerHand.value > 21) {
+    $('#game-board').append('<div class="player-value"> You bust!</div>');
+    showDealerValue();
+    dealerTurn();
+    $('.buttons').addClass('hide');
+  }
+}
+
+function showDealerValue(){
+  $('#game-board').append('<div class="dealer-value">' + playerHand.value.toString() + '</div>');
+  if (playerHand.value > 21) {
+    $('#game-board').append('<div class="dealer-value"> Dealer busts!</div>');
+  }
+}
+
+function hitButton(playerHand) {
+console.log("you clicked hit button");
+  var total = 0;
+  var list = [];
+  for (var i = 0; i < playerHand.length; i++){
+    if (playerHand[i].face !='A'){
+      list.unshift(playerHand[i]);
+    }
+    else {
+      list.push(playerHand.cards[i]);
+    }
+  }
+  for (var h = 0; h < list.length; h++) {
+    if (list[h].face != 'A') {
+      total += list[h].value;
+    }
+    else {
+      if (total < 11) {
+        total += 11;
+      }
+    }
+  }
+  return total;
+}
 
 // Deal a new hand to player
 function dealNewPlayerHand() {
@@ -90,7 +135,9 @@ function dealNewPlayerHand() {
 }
 
 //deal to dealer
-function dealNewDealerHand() {
+function hitDealer() {
+  hitButton(dealerHand);
+  displayDealerValue();
     var dealCards = GameData.deck[Math.floor(Math.random() * GameData.deck.length)];
     console.log("dealNewDealerHand function is working");
     for (var i = 0; i <= 1; i++) {
@@ -101,8 +148,9 @@ function dealNewDealerHand() {
     console.log("these are the value of the cards in dealerHand");
     return dealCards;
 }
+
 //hit button for player
-function hitButton() {
+/*function hitButton() {
     var dealCards = GameData.deck[Math.floor(Math.random() * GameData.deck.length)];
         console.log("hitPlayer function is working");
         playerHand.push(dealCards);
@@ -111,17 +159,26 @@ function hitButton() {
         console.log(playerHand);
         console.log("hit card is " + dealCards);
         checkScore();
-}
+}*/
 //hit dealer
-function hitDealer() {
-  var dealCards = GameData.deck[Math.floor(Math.random() * GameData.deck.length)];
-      console.log("hitDealer function is working");
-      dealerHand.push(dealCards);
-      dealerHand.push(parseInt(dealCards));
-
-      console.log(playerHand);
-      console.log("hit card is " + dealCards);
+function displayDealerValue() {
+  $ ('#game-board').append('<div class="dealer-hand">' + dealerHandValue.toString() + '</div>');
+  if(dealerHandValue > 21){
+    $('#game-board').append('<div class="dealer-value">Dealer Bust!</div>');
+  }
 }
+function dealerTurn(){
+
+}
+
+  //var dealCards = GameData.deck[Math.floor(Math.random() * GameData.deck.length)];
+      //console.log("hitDealer function is working");
+      //dealerHand.push(dealCards);
+      //dealerHand.push(parseInt(dealCards));
+
+      //console.log(playerHand);
+      //console.log("hit card is " + dealCards);
+//}
 //score player hand
 var sumPlayerHand = function(array) {
     console.log("sumPlayerHand working");
@@ -149,6 +206,7 @@ var sumDealerHand= function(array) {
 };
 
 //player stands
+console.log("you hit stand");
 function standButton(){
   if (sumPlayerHand < 22){
     if (sumDealerHand < 17) {
